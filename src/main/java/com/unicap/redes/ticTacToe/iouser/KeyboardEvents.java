@@ -1,4 +1,4 @@
-package com.unicap.redes.ticTacToe.iouser;
+package com.unicap.redes.tictactoe.iouser;
 
 import java.util.ArrayList;
 
@@ -47,7 +47,7 @@ public class KeyboardEvents {
 		this.scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent e) {
 				String code = e.getCode().toString();
-				// input.remove(code);
+				input.remove(code);
 			}
 		});
 	}

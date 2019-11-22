@@ -1,4 +1,4 @@
-package com.unicap.redes.ticTacToe.iouser;
+package com.unicap.redes.tictactoe.iouser;
 
 import java.util.ArrayList;
 
@@ -104,8 +104,8 @@ public class MouseEvents {
 	public void move() {
 		this.scene.setOnMouseMoved(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				System.out.println("X:" + e.getSceneX());
-				System.out.println("Y:" + e.getSceneY());
+				/*System.out.println("X:" + e.getSceneX());
+				System.out.println("Y:" + e.getSceneY());*/
 			}
 		});
 	}

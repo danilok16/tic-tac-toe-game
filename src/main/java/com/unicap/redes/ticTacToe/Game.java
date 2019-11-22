@@ -1,9 +1,12 @@
-package com.unicap.redes.ticTacToe;
+package com.unicap.redes.tictactoe;
 
 import java.io.File;
 
-import com.unicap.redes.ticTacToe.iouser.KeyboardEvents;
-import com.unicap.redes.ticTacToe.iouser.MouseEvents;
+import com.unicap.redes.tictactoe.common.CommunicationCode;
+import com.unicap.redes.tictactoe.common.TransferObject;
+import com.unicap.redes.tictactoe.connection.impl.ServerCommunication;
+import com.unicap.redes.tictactoe.iouser.KeyboardEvents;
+import com.unicap.redes.tictactoe.iouser.MouseEvents;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -42,43 +45,77 @@ public class Game extends Application{
 
 		Font theFont = Font.font("Helvetica", FontWeight.BOLD, 150);
 		gc.setFont(theFont);
-		gc.setStroke(Color.BLACK);
+		gc.setStroke(Color.BLUE);
 		gc.setLineWidth(1);
 		final long startNanoTime = System.nanoTime();
-
+		
+		final ServerCommunication client = new ServerCommunication();
+		
 		new AnimationTimer() {
 
 			public void handle(long currentNanoTime) {
 				gc.clearRect(0, 0, 1024, 700);
 				gc.drawImage(mainScene, 220, 50, 600, 600);
 				if (keyboard.getInput().contains("NUMPAD1") || mouse.getInput().contains("pos_1")) {
-					gc.fillText("X", 255, 190);
+					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), "1,0"));
 				}
 				if (keyboard.getInput().contains("NUMPAD2") || mouse.getInput().contains("pos_2")) {
-					gc.fillText("X", 470, 190);
+					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), "1,1"));
 				}
 				if (keyboard.getInput().contains("NUMPAD3") || mouse.getInput().contains("pos_3")) {
-					gc.fillText("X", 680, 190);
+					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), "1,2"));
 				}
 				if (keyboard.getInput().contains("NUMPAD4") || mouse.getInput().contains("pos_4")) {
-					gc.fillText("X", 255, 400);
+					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), "1,3"));
 				}
 				if (keyboard.getInput().contains("NUMPAD5") || mouse.getInput().contains("pos_5")) {
-					gc.fillText("X", 470, 400);
+					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), "1,4"));
 				}
 				if (keyboard.getInput().contains("NUMPAD6") || mouse.getInput().contains("pos_6")) {
-					gc.fillText("X", 680, 400);
+					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), "1,5"));
 				}
 				if (keyboard.getInput().contains("NUMPAD7") || mouse.getInput().contains("pos_7")) {
-					gc.fillText("X", 255, 610);
+					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), "1,6"));
 				}
 				if (keyboard.getInput().contains("NUMPAD8") || mouse.getInput().contains("pos_8")) {
-					gc.fillText("X", 470, 610);
+					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), "1,7"));
 				}
 				if (keyboard.getInput().contains("NUMPAD9") || mouse.getInput().contains("pos_9")) {
-					gc.fillText("X", 680, 610);
-				}
-
+					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), "1,8"));
+				} 
+				
+				client.send(new TransferObject(CommunicationCode.GET_BOARD.ordinal(), null));
+				
+				if(client.getReceivedObject() != null) {
+					
+					if(client.getReceivedObject().getMessage().charAt(1) == '1') {
+						gc.fillText("X", 255, 190);
+					}
+					if(client.getReceivedObject().getMessage().charAt(4) == '1') {
+						gc.fillText("X", 470, 190);
+					}
+					if(client.getReceivedObject().getMessage().charAt(7) == '1') {
+						gc.fillText("X", 680, 190);
+					}
+					if(client.getReceivedObject().getMessage().charAt(10) == '1') {
+						gc.fillText("X", 255, 400);
+					}
+					if(client.getReceivedObject().getMessage().charAt(13) == '1') {
+						gc.fillText("X", 470, 400);
+					}
+					if(client.getReceivedObject().getMessage().charAt(16) == '1') {
+						gc.fillText("X", 680, 400);
+					}
+					if(client.getReceivedObject().getMessage().charAt(19) == '1') {
+						gc.fillText("X", 255, 610);
+					}
+					if(client.getReceivedObject().getMessage().charAt(22) == '1') {
+						gc.fillText("X", 470, 610);
+					}
+					if(client.getReceivedObject().getMessage().charAt(25) == '1') {
+						gc.fillText("X", 680, 610);
+					}
+				}		
 			}
 
 		}.start();
