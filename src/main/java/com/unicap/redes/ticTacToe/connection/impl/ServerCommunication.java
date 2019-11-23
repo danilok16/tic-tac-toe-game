@@ -28,7 +28,7 @@ public class ServerCommunication implements IServerCommunication {
 	public ServerCommunication(){
 		try {
 			socket = new DatagramSocket();
-			address = InetAddress.getByName("localhost");
+			address = InetAddress.getByName("172.17.17.253");
 		} catch (SocketException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

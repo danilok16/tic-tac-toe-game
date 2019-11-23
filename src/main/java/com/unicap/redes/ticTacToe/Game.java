@@ -20,7 +20,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
-public class Game extends Application{
+public class Game extends Application {
 
 	public static void main(String[] args) {
 		launch(args);
@@ -48,74 +48,98 @@ public class Game extends Application{
 		gc.setStroke(Color.BLUE);
 		gc.setLineWidth(1);
 		final long startNanoTime = System.nanoTime();
-		
+
 		final ServerCommunication client = new ServerCommunication();
-		
+
+		client.send(new TransferObject(CommunicationCode.LOGIN.ordinal(), null));
+
+		final String player = client.getReceivedObject().getMessage();
+		final String LABEL_X = "X";
+		final String LABEL_O = "O";
+
 		new AnimationTimer() {
 
 			public void handle(long currentNanoTime) {
 				gc.clearRect(0, 0, 1024, 700);
 				gc.drawImage(mainScene, 220, 50, 600, 600);
 				if (keyboard.getInput().contains("NUMPAD1") || mouse.getInput().contains("pos_1")) {
-					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), "1,0"));
+					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), player + ",0"));
 				}
 				if (keyboard.getInput().contains("NUMPAD2") || mouse.getInput().contains("pos_2")) {
-					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), "1,1"));
+					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), player + ",1"));
 				}
 				if (keyboard.getInput().contains("NUMPAD3") || mouse.getInput().contains("pos_3")) {
-					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), "1,2"));
+					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), player + ",2"));
 				}
 				if (keyboard.getInput().contains("NUMPAD4") || mouse.getInput().contains("pos_4")) {
-					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), "1,3"));
+					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), player + ",3"));
 				}
 				if (keyboard.getInput().contains("NUMPAD5") || mouse.getInput().contains("pos_5")) {
-					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), "1,4"));
+					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), player + ",4"));
 				}
 				if (keyboard.getInput().contains("NUMPAD6") || mouse.getInput().contains("pos_6")) {
-					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), "1,5"));
+					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), player + ",5"));
 				}
 				if (keyboard.getInput().contains("NUMPAD7") || mouse.getInput().contains("pos_7")) {
-					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), "1,6"));
+					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), player + ",6"));
 				}
 				if (keyboard.getInput().contains("NUMPAD8") || mouse.getInput().contains("pos_8")) {
-					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), "1,7"));
+					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), player + ",7"));
 				}
 				if (keyboard.getInput().contains("NUMPAD9") || mouse.getInput().contains("pos_9")) {
-					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), "1,8"));
-				} 
-				
+					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), player + ",8"));
+				}
+
 				client.send(new TransferObject(CommunicationCode.GET_BOARD.ordinal(), null));
-				
-				if(client.getReceivedObject() != null) {
-					
-					if(client.getReceivedObject().getMessage().charAt(1) == '1') {
-						gc.fillText("X", 255, 190);
+
+				if (client.getReceivedObject() != null) {
+
+					if (client.getReceivedObject().getMessage().charAt(1) == '1') {
+						gc.fillText(LABEL_X, 255, 190);
+					} else if (client.getReceivedObject().getMessage().charAt(1) == '2') {
+						gc.fillText(LABEL_O, 255, 190);
 					}
-					if(client.getReceivedObject().getMessage().charAt(4) == '1') {
-						gc.fillText("X", 470, 190);
+					if (client.getReceivedObject().getMessage().charAt(4) == '1') {
+						gc.fillText(LABEL_X, 470, 190);
+					} else if (client.getReceivedObject().getMessage().charAt(4) == '2') {
+						gc.fillText(LABEL_O, 470, 190);
 					}
-					if(client.getReceivedObject().getMessage().charAt(7) == '1') {
-						gc.fillText("X", 680, 190);
+					if (client.getReceivedObject().getMessage().charAt(7) == '1') {
+						gc.fillText(LABEL_X, 680, 190);
+					} else if (client.getReceivedObject().getMessage().charAt(7) == '2') {
+						gc.fillText(LABEL_O, 680, 190);
 					}
-					if(client.getReceivedObject().getMessage().charAt(10) == '1') {
-						gc.fillText("X", 255, 400);
+					if (client.getReceivedObject().getMessage().charAt(10) == '1') {
+						gc.fillText(LABEL_X, 255, 400);
+					} else if (client.getReceivedObject().getMessage().charAt(10) == '2') {
+						gc.fillText(LABEL_O, 255, 400);
 					}
-					if(client.getReceivedObject().getMessage().charAt(13) == '1') {
-						gc.fillText("X", 470, 400);
+					if (client.getReceivedObject().getMessage().charAt(13) == '1') {
+						gc.fillText(LABEL_X, 470, 400);
+					} else if (client.getReceivedObject().getMessage().charAt(13) == '2') {
+						gc.fillText(LABEL_O, 470, 400);
 					}
-					if(client.getReceivedObject().getMessage().charAt(16) == '1') {
-						gc.fillText("X", 680, 400);
+					if (client.getReceivedObject().getMessage().charAt(16) == '1') {
+						gc.fillText(LABEL_X, 680, 400);
+					} else if (client.getReceivedObject().getMessage().charAt(16) == '2') {
+						gc.fillText(LABEL_O, 680, 400);
 					}
-					if(client.getReceivedObject().getMessage().charAt(19) == '1') {
-						gc.fillText("X", 255, 610);
+					if (client.getReceivedObject().getMessage().charAt(19) == '1') {
+						gc.fillText(LABEL_X, 255, 610);
+					} else if (client.getReceivedObject().getMessage().charAt(19) == '2') {
+						gc.fillText(LABEL_O, 255, 610);
 					}
-					if(client.getReceivedObject().getMessage().charAt(22) == '1') {
-						gc.fillText("X", 470, 610);
+					if (client.getReceivedObject().getMessage().charAt(22) == '1') {
+						gc.fillText(LABEL_X, 470, 610);
+					} else if (client.getReceivedObject().getMessage().charAt(22) == '2') {
+						gc.fillText(LABEL_O, 470, 610);
 					}
-					if(client.getReceivedObject().getMessage().charAt(25) == '1') {
-						gc.fillText("X", 680, 610);
+					if (client.getReceivedObject().getMessage().charAt(25) == '1') {
+						gc.fillText(LABEL_X, 680, 610);
+					} else if (client.getReceivedObject().getMessage().charAt(25) == '2') {
+						gc.fillText(LABEL_O, 680, 610);
 					}
-				}		
+				}
 			}
 
 		}.start();
