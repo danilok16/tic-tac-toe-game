@@ -6,13 +6,15 @@ public class TransferObject implements Serializable {
     private static final long serialVersionUID = 1L;
     private int code;
     private String message;
+    private int turn;
 
     public TransferObject() {
     }
 
-    public TransferObject(int code, String message) {
+    public TransferObject(int code, String message, int turn) {
         this.code = code;
         this.message = message;
+        this.turn = turn;
     }
 
     public int getCode() {
@@ -31,11 +33,20 @@ public class TransferObject implements Serializable {
         this.message = message;
     }
 
+    public int getTurn() {
+        return turn;
+    }
+
+    public void setTurn(int turn) {
+        this.turn = turn;
+    }
+
     @Override
     public String toString() {
-        return "server.TransferObject{" +
+        return "TransferObject{" +
                 "code=" + code +
                 ", message='" + message + '\'' +
+                ", turn=" + turn +
                 '}';
     }
 }

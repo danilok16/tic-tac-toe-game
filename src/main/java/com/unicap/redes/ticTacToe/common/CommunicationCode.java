@@ -7,5 +7,7 @@ public enum CommunicationCode {
     SEND_REQUEST_TO_PLAY,
     MAKE_A_MOVE,
     GET_BOARD,
+    END_GAME,
+    RESTART,
     INVALID
 }

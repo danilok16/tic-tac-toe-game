@@ -51,7 +51,7 @@ public class Game extends Application {
 
 		final ServerCommunication client = new ServerCommunication();
 
-		client.send(new TransferObject(CommunicationCode.LOGIN.ordinal(), null));
+		client.send(new TransferObject(CommunicationCode.LOGIN.ordinal(), null,0));
 
 		final String player = client.getReceivedObject().getMessage();
 		final String LABEL_X = "X";
@@ -63,34 +63,34 @@ public class Game extends Application {
 				gc.clearRect(0, 0, 1024, 700);
 				gc.drawImage(mainScene, 220, 50, 600, 600);
 				if (keyboard.getInput().contains("NUMPAD1") || mouse.getInput().contains("pos_1")) {
-					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), player + ",0"));
+					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), player + ",0",0));
 				}
 				if (keyboard.getInput().contains("NUMPAD2") || mouse.getInput().contains("pos_2")) {
-					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), player + ",1"));
+					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), player + ",1",0));
 				}
 				if (keyboard.getInput().contains("NUMPAD3") || mouse.getInput().contains("pos_3")) {
-					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), player + ",2"));
+					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), player + ",2",0));
 				}
 				if (keyboard.getInput().contains("NUMPAD4") || mouse.getInput().contains("pos_4")) {
-					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), player + ",3"));
+					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), player + ",3",0));
 				}
 				if (keyboard.getInput().contains("NUMPAD5") || mouse.getInput().contains("pos_5")) {
-					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), player + ",4"));
+					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), player + ",4",0));
 				}
 				if (keyboard.getInput().contains("NUMPAD6") || mouse.getInput().contains("pos_6")) {
-					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), player + ",5"));
+					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), player + ",5",0));
 				}
 				if (keyboard.getInput().contains("NUMPAD7") || mouse.getInput().contains("pos_7")) {
-					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), player + ",6"));
+					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), player + ",6",0));
 				}
 				if (keyboard.getInput().contains("NUMPAD8") || mouse.getInput().contains("pos_8")) {
-					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), player + ",7"));
+					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), player + ",7",0));
 				}
 				if (keyboard.getInput().contains("NUMPAD9") || mouse.getInput().contains("pos_9")) {
-					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), player + ",8"));
+					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), player + ",8",0));
 				}
 
-				client.send(new TransferObject(CommunicationCode.GET_BOARD.ordinal(), null));
+				client.send(new TransferObject(CommunicationCode.GET_BOARD.ordinal(), null,0));
 
 				if (client.getReceivedObject() != null) {
 
