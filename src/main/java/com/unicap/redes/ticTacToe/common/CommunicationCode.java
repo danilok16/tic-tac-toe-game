@@ -9,5 +9,6 @@ public enum CommunicationCode {
     GET_BOARD,
     END_GAME,
     RESTART,
+    LOGOUT,
     INVALID
 }

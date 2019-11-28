@@ -1,7 +1,6 @@
 package com.unicap.redes.tictactoe;
 
 import java.io.File;
-import java.util.ArrayList;
 
 import com.unicap.redes.tictactoe.common.CommunicationCode;
 import com.unicap.redes.tictactoe.common.TransferObject;
@@ -101,17 +100,15 @@ public class Game extends Application {
 					client.send(new TransferObject(CommunicationCode.MAKE_A_MOVE.ordinal(), client.getPlayer().getCod() + ",8",0));
 					mouse.resetInputs();
 				}
-
-				client.send(new TransferObject(CommunicationCode.GET_BOARD.ordinal(), null,0));
-
-				if(client.getReceivedObject() != null && client.getReceivedObject().getCode() == 6) {
-					System.out.println("Parabéns vc ganhou: "+ client.getReceivedObject().getMessage());
-					theStage.close();
-				}
 				
+				client.send(new TransferObject(CommunicationCode.GET_BOARD.ordinal(), null,0));
+				
+				if(client.getReceivedObject() != null && client.getReceivedObject().getCode() == 6) {
+					gc.clearRect(0, 0, 800, 700);
+					drawWinnerLine(gc, client);
+				}
+
 				if (client.getReceivedObject() != null && client.getReceivedObject().getMessage().contains("0")) {
-					
-					
 					
 					if (client.getReceivedObject().getMessage().charAt(1) == '1') {
 						gc.setFill( Color.RED );
@@ -189,7 +186,7 @@ public class Game extends Application {
 	@Override
 	public void stop(){
 		ServerCommunication client = new ServerCommunication();
-		client.send(new TransferObject(CommunicationCode.RESTART.ordinal(), null,0));
+		client.send(new TransferObject(CommunicationCode.LOGOUT.ordinal(), null,0));
 	}
 	
 	public void drawPlayerInformation(GraphicsContext gc, ServerCommunication client, Font playerFont) {
@@ -205,6 +202,6 @@ public class Game extends Application {
 		gc.setStroke( Color.RED );
 		gc.setLineWidth(1);
 		gc.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
-		gc.fillText("Jogador: "+client.getPlayer().getCod(), 10, 40);
+		gc.fillText("Vencedor: Jogador - "+client.getPlayer().getCod(), 400, 400);
 	}
 }
