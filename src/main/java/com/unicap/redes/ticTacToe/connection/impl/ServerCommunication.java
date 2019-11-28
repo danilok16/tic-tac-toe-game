@@ -12,8 +12,10 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
+import com.unicap.redes.tictactoe.common.CommunicationCode;
 import com.unicap.redes.tictactoe.common.TransferObject;
 import com.unicap.redes.tictactoe.connection.IServerCommunication;
+import com.unicap.redes.tictactoe.player.Player;
 
 public class ServerCommunication implements IServerCommunication {
 	public static Scanner scanner = new Scanner(System.in);
@@ -23,12 +25,13 @@ public class ServerCommunication implements IServerCommunication {
 	private byte[] buffer;
 	private final int bufferLength = 1024;
 	TransferObject receivedObject;
+	private Player player;
 	
 	
 	public ServerCommunication(){
 		try {
 			socket = new DatagramSocket();
-			address = InetAddress.getByName("172.17.17.253");
+			address = InetAddress.getByName("localhost");
 		} catch (SocketException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -153,6 +156,23 @@ public class ServerCommunication implements IServerCommunication {
 
 	public void setReceivedObject(TransferObject receivedObject) {
 		this.receivedObject = receivedObject;
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+	
+	public void login() {
+		this.send(new TransferObject(CommunicationCode.LOGIN.ordinal(), null,0));
+		if(this.receivedObject != null) {
+			Player player = new Player();
+			player.setCod(receivedObject.getMessage());
+			this.setPlayer(player);
+		}
 	}
 
 }
