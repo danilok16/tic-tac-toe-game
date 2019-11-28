@@ -7,6 +7,7 @@ import com.unicap.redes.tictactoe.common.TransferObject;
 import com.unicap.redes.tictactoe.connection.impl.ServerCommunication;
 import com.unicap.redes.tictactoe.iouser.KeyboardEvents;
 import com.unicap.redes.tictactoe.iouser.MouseEvents;
+import com.unicap.redes.tictactoe.player.Player;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -22,6 +23,8 @@ import javafx.stage.Stage;
 
 public class Game extends Application {
 
+	private Player player;
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -56,6 +59,8 @@ public class Game extends Application {
 		
 		final String LABEL_X = "X";
 		final String LABEL_O = "O";
+		
+		player = client.getPlayer();
 
 		new AnimationTimer() {
 
@@ -173,8 +178,6 @@ public class Game extends Application {
 						gc.setFill( Color.GREEN );
 						gc.fillText(LABEL_O, 680, 610);
 					}
-				}else {
-					theStage.close();
 				}
 			}
 		}.start();
@@ -186,7 +189,7 @@ public class Game extends Application {
 	@Override
 	public void stop(){
 		ServerCommunication client = new ServerCommunication();
-		client.send(new TransferObject(CommunicationCode.LOGOUT.ordinal(), null,0));
+		client.send(new TransferObject(CommunicationCode.LOGOUT.ordinal(), player.getCod(),0));
 	}
 	
 	public void drawPlayerInformation(GraphicsContext gc, ServerCommunication client, Font playerFont) {
