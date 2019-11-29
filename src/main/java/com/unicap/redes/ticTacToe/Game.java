@@ -114,6 +114,7 @@ public class Game extends Application {
 				}
 				
 				if(client.getWinner() != null) {
+					gc.clearRect(0, 0, 1024, 700);
 					drawWinnerLine(gc, client);
 				}
 
@@ -194,6 +195,7 @@ public class Game extends Application {
 	public void stop(){
 		ServerCommunication client = new ServerCommunication();
 		client.send(new TransferObject(CommunicationCode.LOGOUT.ordinal(), player.getCod(),0));
+		client.send(new TransferObject(CommunicationCode.RESTART.ordinal(), player.getCod(),0));
 	}
 	
 	public void drawPlayerInformation(GraphicsContext gc, ServerCommunication client, Font playerFont) {
@@ -209,6 +211,10 @@ public class Game extends Application {
 		gc.setStroke( Color.RED );
 		gc.setLineWidth(1);
 		gc.setFont(Font.font("Helvetica", FontWeight.BOLD, 40));
-		gc.fillText("Jogador Vencedor: "+client.getWinner().getCod(), 300, 700);
+		if(client.getWinner().getCod().equals("-1")) {
+			gc.fillText("Empate!", 300, 700);
+		}else if (client.getWinner().getCod().equals("1") || client.getWinner().getCod().equals("2")) {
+			gc.fillText("Jogador Vencedor: "+client.getWinner().getCod(), 300, 350);
+		}
 	}
 }

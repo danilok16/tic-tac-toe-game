@@ -32,7 +32,7 @@ public class ServerCommunication implements IServerCommunication {
 	public ServerCommunication(){
 		try {
 			socket = new DatagramSocket();
-			address = InetAddress.getByName("192.168.43.150");
+			address = InetAddress.getByName("localhost");
 		} catch (SocketException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -100,7 +100,7 @@ public class ServerCommunication implements IServerCommunication {
 		ByteArrayInputStream byteInputStream = new ByteArrayInputStream(data);
 		ObjectInputStream objectInputStream = new ObjectInputStream(byteInputStream);
 		TransferObject receivedObject = (TransferObject) objectInputStream.readObject();
-		System.out.println("Obj recived: " + receivedObject);
+		//System.out.println("Obj recived: " + receivedObject);
 		return receivedObject;
 	}
 
