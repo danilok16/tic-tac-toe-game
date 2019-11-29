@@ -59,7 +59,7 @@ public class Game extends Application {
 		
 		final String LABEL_X = "X";
 		final String LABEL_O = "O";
-		
+
 		player = client.getPlayer();
 
 		new AnimationTimer() {
