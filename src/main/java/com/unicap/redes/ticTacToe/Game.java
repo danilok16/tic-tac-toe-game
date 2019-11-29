@@ -51,7 +51,6 @@ public class Game extends Application {
 		gc.setFont(theFont);
 		gc.setStroke(Color.BLUE);
 		gc.setLineWidth(1);
-		final long startNanoTime = System.nanoTime();
 
 		final ServerCommunication client = new ServerCommunication();
 
@@ -112,7 +111,9 @@ public class Game extends Application {
 					Player winner = new Player();
 					winner.setCod(client.getReceivedObject().getMessage());
 					client.setWinner(winner);
-					gc.clearRect(0, 0, 800, 700);
+				}
+				
+				if(client.getWinner() != null) {
 					drawWinnerLine(gc, client);
 				}
 
@@ -207,7 +208,7 @@ public class Game extends Application {
 		gc.setFill( Color.GREEN );
 		gc.setStroke( Color.RED );
 		gc.setLineWidth(1);
-		gc.setFont(Font.font("Helvetica", FontWeight.BOLD, 60));
-		gc.fillText("Jogador Vencedor: "+client.getWinner().getCod(), 400, 400);
+		gc.setFont(Font.font("Helvetica", FontWeight.BOLD, 40));
+		gc.fillText("Jogador Vencedor: "+client.getWinner().getCod(), 300, 700);
 	}
 }
