@@ -109,6 +109,9 @@ public class Game extends Application {
 				client.send(new TransferObject(CommunicationCode.GET_BOARD.ordinal(), null,0));
 				
 				if(client.getReceivedObject() != null && client.getReceivedObject().getCode() == 6) {
+					Player winner = new Player();
+					winner.setCod(client.getReceivedObject().getMessage());
+					client.setWinner(winner);
 					gc.clearRect(0, 0, 800, 700);
 					drawWinnerLine(gc, client);
 				}
@@ -205,6 +208,6 @@ public class Game extends Application {
 		gc.setStroke( Color.RED );
 		gc.setLineWidth(1);
 		gc.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
-		gc.fillText("Vencedor: Jogador - "+client.getPlayer().getCod(), 400, 400);
+		gc.fillText("Jogador Vencedor: "+client.getWinner().getCod(), 400, 400);
 	}
 }

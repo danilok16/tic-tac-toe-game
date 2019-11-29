@@ -26,6 +26,7 @@ public class ServerCommunication implements IServerCommunication {
 	private final int bufferLength = 1024;
 	TransferObject receivedObject;
 	private Player player;
+	private Player winner;
 	
 	
 	public ServerCommunication(){
@@ -175,4 +176,12 @@ public class ServerCommunication implements IServerCommunication {
 		}
 	}
 
+	public Player getWinner() {
+		return winner;
+	}
+
+	public void setWinner(Player winner) {
+		this.winner = winner;
+	}
+	
 }
