@@ -204,10 +204,10 @@ public class Game extends Application {
 	}
 	
 	public void drawWinnerLine(GraphicsContext gc, ServerCommunication client) {
-		gc.setFill( Color.BLACK );
+		gc.setFill( Color.GREEN );
 		gc.setStroke( Color.RED );
 		gc.setLineWidth(1);
-		gc.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
+		gc.setFont(Font.font("Helvetica", FontWeight.BOLD, 60));
 		gc.fillText("Jogador Vencedor: "+client.getWinner().getCod(), 400, 400);
 	}
 }
